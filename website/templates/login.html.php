@@ -21,7 +21,7 @@
 		</div>
 		
 		<div>
-			<input type="submit">
+			<input type="submit" value="Login">
 		</div>
 		
 	</form>

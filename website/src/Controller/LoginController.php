@@ -23,4 +23,9 @@ class LoginController
   {
   	echo $this->template->render("login.html.php");
   }
+  
+  public function login()
+  {
+  	echo "Process Login";
+  }
 }

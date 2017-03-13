@@ -20,7 +20,15 @@ switch($_SERVER["REQUEST_URI"]) {
 		echo "Test";
 		break;
 	case "/login":
-		(new ldahinden\Controller\LoginController($tmpl))->showLogin();
+		$ctr = new ldahinden\Controller\LoginController($tmpl);
+		if ($_SERVER['REQUEST_METHOD'] == "GET")
+		{
+			$ctr->showLogin();
+		}
+		else if ($_SERVER['REQUEST_METHOD'] == "POST")
+		{
+			$ctr->login();
+		}
 		break;
 	default:
 		$matches = [];
