@@ -16,6 +16,9 @@ switch($_SERVER["REQUEST_URI"]) {
 			echo "Error happened";
 		}
 		break;
+	case "/testroute":
+		echo "Test";
+		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
