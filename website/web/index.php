@@ -19,6 +19,9 @@ switch($_SERVER["REQUEST_URI"]) {
 	case "/testroute":
 		echo "Test";
 		break;
+	case "/login":
+		(new ihrname\Controller\LoginController($tmpl))->showLogin();
+		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
