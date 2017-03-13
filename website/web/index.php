@@ -3,11 +3,11 @@
 error_reporting(E_ALL);
 
 require_once("../vendor/autoload.php");
-$tmpl = new ihrname\SimpleTemplateEngine(__DIR__ . "/../templates/");
+$tmpl = new ldahinden\SimpleTemplateEngine(__DIR__ . "/../templates/");
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
-		(new ihrname\Controller\IndexController($tmpl))->homepage();
+		(new ldahinden\Controller\IndexController($tmpl))->homepage();
 		break;
 	case "/test/upload":
 		if(file_put_contents(__DIR__ . "/../../upload/test.txt", "Mein erster Upload")) {
@@ -20,7 +20,7 @@ switch($_SERVER["REQUEST_URI"]) {
 		echo "Test";
 		break;
 	case "/login":
-		(new ihrname\Controller\LoginController($tmpl))->showLogin();
+		(new ldahinden\Controller\LoginController($tmpl))->showLogin();
 		break;
 	default:
 		$matches = [];

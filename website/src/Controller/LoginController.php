@@ -1,8 +1,8 @@
 <?php
 
-namespace ihrname\Controller;
+namespace ldahinden\Controller;
 
-use ihrname\SimpleTemplateEngine;
+use ldahinden\SimpleTemplateEngine;
 
 class LoginController 
 {
