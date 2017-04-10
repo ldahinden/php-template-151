@@ -1,9 +1,17 @@
 <?php
 
+use ldahinden\Service\LoginMysqlService;
+
 error_reporting(E_ALL);
 
+session_start();
+
 require_once("../vendor/autoload.php");
-$tmpl = new ldahinden\SimpleTemplateEngine(__DIR__ . "/../templates/");
+$factory = new ldahinden\Factory();
+$tmpl = $factory->getTemplateEngine();
+$pdo = $factory->getPDO();
+
+$loginService = $factory->getLoginService();
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
@@ -20,14 +28,14 @@ switch($_SERVER["REQUEST_URI"]) {
 		echo "Test";
 		break;
 	case "/login":
-		$ctr = new ldahinden\Controller\LoginController($tmpl);
+		$ctr = $factory->getLoginController();
 		if ($_SERVER['REQUEST_METHOD'] == "GET")
 		{
 			$ctr->showLogin();
 		}
 		else if ($_SERVER['REQUEST_METHOD'] == "POST")
 		{
-			$ctr->login();
+			$ctr->login($_POST);
 		}
 		break;
 	default:

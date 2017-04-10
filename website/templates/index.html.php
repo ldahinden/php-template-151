@@ -1,3 +1,5 @@
+<?= (array_key_exists("email", $_SESSION)) ? $_SESSION["email"] : "" ?>
+
 <h1>Titel</h1>
 <h2>Lorem Ipsum</h2>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 

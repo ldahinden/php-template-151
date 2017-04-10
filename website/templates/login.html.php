@@ -9,7 +9,7 @@
 		<div>
 			<label>
 			Email:
-			<input type="email" name="email">
+			<input type="email" name="email" value="<?= (isset($email)) ? $email : "" ?>"/>
 			</label>
 		</div>
 		
