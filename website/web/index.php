@@ -7,15 +7,21 @@ error_reporting(E_ALL);
 session_start();
 
 require_once("../vendor/autoload.php");
-$factory = new ldahinden\Factory();
-$tmpl = $factory->getTemplateEngine();
-$pdo = $factory->getPDO();
 
-$loginService = $factory->getLoginService();
+$conf = parse_ini_file(__DIR__ . "/../config.ini", true);
+$factory = new ldahinden\Factory($conf);
+
+
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
-		(new ldahinden\Controller\IndexController($tmpl))->homepage();
+		$factory->getIndexController()->homepage();
+		$factory->getMailer()->send(
+				Swift_Message::newInstance("Subject")
+				->setFrom(["gibz.module.151@gmail.com" => "Your Name"])
+				->setTo(["luca.dahinden@gmx.ch" => "Foos Name"])
+				->setBody("lul")
+				);
 		break;
 	case "/test/upload":
 		if(file_put_contents(__DIR__ . "/../../upload/test.txt", "Mein erster Upload")) {
@@ -41,7 +47,7 @@ switch($_SERVER["REQUEST_URI"]) {
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
-			(new ihrname\Controller\IndexController($tmpl))->greet($matches[1]);
+			$factory->getIndexController()->greet($matches[1]);
 			break;
 		}
 		echo "Not Found";
