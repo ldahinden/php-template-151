@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login</title>
-</head>
-<body>
+{% extends "base.html.twig" %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
 	<h1>Login</h1>
 	<form method="POST">
 		<div>
 			<label>
 			Email:
-			<input type="email" name="email" value="<?= (isset($email)) ? $email : "" ?>"/>
+			<input type="email" name="email" value="{{ email }}"/>
 			</label>
 		</div>
 		
@@ -21,9 +19,11 @@
 		</div>
 		
 		<div>
+			<input type="hidden" name="token" value="{{ token }}"
+		</div>
+		<div>
 			<input type="submit" value="Login">
 		</div>
 		
 	</form>
-</body>
-</html>
+{% endblock %}

@@ -11,13 +11,13 @@ class Factory
 	
 	public function getIndexController()
 	{
-		return new Controller\IndexController($this->getTemplateEngine());
+		return new Controller\IndexController($this->getTwigEngine());
 	}
 	
 	public function getLoginController()
 	{
 		return new Controller\LoginController(
-				$this->getTemplateEngine(),
+				$this->getTwigEngine(),
 				$this->getLoginService());
 	}
 	
@@ -26,10 +26,18 @@ class Factory
 		return new SimpleTemplateEngine(__DIR__ . "/../templates/");
 	}
 	
+	public function getTwigEngine()
+	{
+		$loader = new \Twig_Loader_Filesystem(__DIR__ . "/../templates/");
+		$twig = new \Twig_Environment($loader);
+		$twig->addGlobal("_SESSION", $_SESSION);
+		return $twig;
+	}
+	
 	public function getMailer()
 	{
 		return \Swift_Mailer::newInstance(
-				\Swift_SmtpTransport::newInstance("smtp.gmail.com", 465, "ssl")
+				\Swift_SmtpTransport::newInstance($this->config["mailer"]["host"], $this->config["mailer"]["port"], $this->config["mailer"]["security"])
 				->setUsername($this->config["mailer"]["username"])
 				->setPassword($this->config["mailer"]["password"])
 				);

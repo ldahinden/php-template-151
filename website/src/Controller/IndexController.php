@@ -14,16 +14,16 @@ class IndexController
   /**
    * @param ihrname\SimpleTemplateEngine
    */
-  public function __construct(SimpleTemplateEngine $template)
+  public function __construct(\Twig_Environment $template)
   {
      $this->template = $template;
   }
 
   public function homepage() {
-    echo $this->template->render("index.html.php");
+    echo $this->template->render("index.html.twig", ["user" => (array_key_exists("email", $_SESSION)) ? $_SESSION["email"] : ""]);
   }
 
   public function greet($name) {
-  	echo $this->template->render("hello.html.php", ["name" => $name]);
+  	echo $this->template->render("hello.html.twig", ["name" => $name]);
   }
 }

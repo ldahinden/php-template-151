@@ -1,9 +1,6 @@
 <?php
 
-use ldahinden\Service\LoginMysqlService;
-
 error_reporting(E_ALL);
-
 session_start();
 
 require_once("../vendor/autoload.php");
@@ -16,12 +13,12 @@ $factory = new ldahinden\Factory($conf);
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
 		$factory->getIndexController()->homepage();
-		$factory->getMailer()->send(
+		/*$factory->getMailer()->send(
 				Swift_Message::newInstance("Subject")
 				->setFrom(["gibz.module.151@gmail.com" => "Your Name"])
 				->setTo(["luca.dahinden@gmx.ch" => "Foos Name"])
 				->setBody("lul")
-				);
+				);*/
 		break;
 	case "/test/upload":
 		if(file_put_contents(__DIR__ . "/../../upload/test.txt", "Mein erster Upload")) {
@@ -44,6 +41,9 @@ switch($_SERVER["REQUEST_URI"]) {
 			$ctr->login($_POST);
 		}
 		break;
+	case "/logout":
+		$ctr = $factory->getLoginController();
+		$ctr->logout();
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {

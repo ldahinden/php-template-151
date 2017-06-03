@@ -1,0 +1,42 @@
+<!DOCTYPEE html>
+<html>
+	<head>
+		{% block head %}
+			<link rel="stylesheet" href="/style.css" />
+			<title>{% block title %}{% endblock %}</title>
+		{% endblock %}
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="headerwrapper">
+        		<div id="header">
+        			<h1 class="title">Forum</h1>
+        		</div>
+        		<div id="navigation">
+        			<ul class="navigation">
+        				<li>
+        					<a href="/">Home</a>
+        				</li>
+        				<li>
+        					<a href="/">Thema 1</a>
+        				</li>
+        				{% if user != "" %}
+        				<li class="right">
+        					<a href="/logout">Logout</a>
+        				</li>
+        				{% else %}
+        				<li class="right">
+        					<a href="/login">Login</a>
+        				</li>
+        				<li class="right">
+        					<a href="/register">Register</a>
+    					</li>
+        				{% endif %}
+        			</ul>
+        		</div>
+    		</div>
+    		<div id="content">{% block content %}{% endblock %}</div>		
+    		<div id="footer">{% block footer %}{% endblock %}</div>
+		</div>
+	</body>
+</ĥtml>
