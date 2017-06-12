@@ -19,11 +19,18 @@ class LoginMysqlService implements LoginService
 	
 	public function authenticate($username, $password)
 	{
-		$stmt = $this->pdo->prepare("SELECT * FROM user WHERE email=? AND password=?");
+		$stmt = $this->pdo->prepare("SELECT * FROM user WHERE email=? OR username=?");
 		$stmt->bindValue(1, $username);
-		$stmt->bindValue(2, $password);
+		$stmt->bindValue(2, $username);
 		$stmt->execute();
-		 
-		return $stmt->rowCount() == 1;
+		$user = $stmt->fetchObject();
+		if ($user->activated)
+		{
+			return password_verify($password, $user->password);
+		}
+		else 
+		{
+			return false;
+		}
 	}
 }

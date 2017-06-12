@@ -68,3 +68,33 @@ ul.navigation li.right{
 	margin-top: 200px;
 	text-align: center;
 }
+
+.errormessage{
+	color: red;
+	font-style: italic;
+}
+
+input{
+	font-size: 16px;
+}
+
+input.submitbutton{
+	font-weight: bold;
+	border: none;
+	padding: 15px 32px;
+	text-align: center;
+    text-decoration: none;
+	margin-top: 10px;
+	background-color: #3F3F3F;
+	color: #E59400;
+}
+
+input.submitbutton:HOVER {
+	background-color: #8B8B8B;
+	color: #3F3F3F;
+}
+
+input.inputField{
+	width: 200px;
+	margin: 10px;
+}

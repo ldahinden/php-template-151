@@ -29,35 +29,31 @@ class LoginController
   public function showLogin()
   {
   	$_SESSION["token"] = md5(random_bytes(1000));
-  	echo $this->template->render("login.html.twig", ['token' => $_SESSION['token']]);
+  	echo $this->template->render("login.html.twig");
   }
   
   public function login(array $data)
   {
-  	if(!array_key_exists('email', $data) OR !array_key_exists('password', $data) OR !array_key_exists('token', $data))
+  	if(!array_key_exists('username', $data) OR !array_key_exists('password', $data))
   	{
   		$this->showLogin();
   		return;
   	}
+  	if($this->loginService->authenticate($data["username"], $data["password"])){
+  		$_SESSION["username"] = $data["username"];
+  		header("Location: /");
+  	}else{
+  		echo $this->template->render("login.html.twig", ["username" => $data["username"], "errorMessage" => "Username or Password are not correct or your account has not been activated yet."]);  		
+  	}  		
   	
-  	if ($data["token"] == $_SESSION["token"])
-  	{
-	  	if($this->loginService->authenticate($data["email"], $data["password"])){
-	  		$_SESSION["email"] = $data["email"];
-	  		header("Location: /");
-	  	}else{
-	  		echo $this->template->render("login.html.twig", ["email" => $data["email"]]);  		
-	  	}  		
-  	}
-  	else {
-  		$this->showLogin();
-  	}
   }
   
-  public function logout()
+  public function logout($token)
   {
-  	session_destroy();
-  	echo $this->template->render("index.html.twig");
+  	if ($token == $_SESSION["token"])
+  	{
+	  	unset($_SESSION["username"]);
+	  	header("Location: /");
+  	}
   }
-  
 }

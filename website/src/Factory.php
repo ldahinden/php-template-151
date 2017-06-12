@@ -1,9 +1,13 @@
 <?php 
 namespace ldahinden;
 
+use ldahinden\Session;
+use ldahinden\Controller\PasswordController;
+
 class Factory
 {
 	private $config;
+	private $session;
 	public function __construct(array $config)
 	{
 		$this->config = $config;
@@ -18,7 +22,31 @@ class Factory
 	{
 		return new Controller\LoginController(
 				$this->getTwigEngine(),
-				$this->getLoginService());
+				$this->getLoginService(),
+				$this->getMailer());
+	}
+	
+	public function getRegisterController()
+	{
+		return new Controller\RegisterController(
+				$this->getTwigEngine(),
+				$this->getRegisterService(),
+				$this->getMailer());
+	}
+	
+	public function getPasswordController()
+	{
+		return new Controller\PasswordController(
+				$this->getTwigEngine(),
+				$this->getPasswordService(),
+				$this->getMailer());
+	}
+	
+	public function getTopicController()
+	{
+		return new Controller\TopicController(
+				$this->getTwigEngine(),
+				$this->getTopicService());
 	}
 	
 	public function getTemplateEngine()
@@ -30,7 +58,7 @@ class Factory
 	{
 		$loader = new \Twig_Loader_Filesystem(__DIR__ . "/../templates/");
 		$twig = new \Twig_Environment($loader);
-		$twig->addGlobal("_SESSION", $_SESSION);
+		$twig->addGlobal("_SESSION", $this->getSession());
 		return $twig;
 	}
 	
@@ -56,5 +84,29 @@ class Factory
 	public function getLoginService()
 	{
 		return new Service\LoginMysqlService($this->getPDO());
+	}
+	
+	public function getRegisterService()
+	{
+		return new Service\RegisterMysqlService($this->getPDO());
+	}
+	
+	public function getPasswordService()
+	{
+		return new Service\PasswordMysqlService($this->getPDO());
+	}
+	
+	public function getTopicService()
+	{
+		return  new Service\TopicMySqlService($this->getPDO());
+	}
+	
+	public function getSession()
+	{
+		if (!$this->session)
+		{
+			$this->session = new \ldahinden\Session();
+		}
+		return $this->session;
 	}
 }

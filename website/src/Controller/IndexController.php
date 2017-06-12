@@ -20,7 +20,7 @@ class IndexController
   }
 
   public function homepage() {
-    echo $this->template->render("index.html.twig", ["user" => (array_key_exists("email", $_SESSION)) ? $_SESSION["email"] : ""]);
+    echo $this->template->render("index.html.twig", ["user" => (array_key_exists("username", $_SESSION)) ? $_SESSION["username"] : ""]);
   }
 
   public function greet($name) {

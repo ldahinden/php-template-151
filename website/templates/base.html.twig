@@ -10,19 +10,21 @@
 		<div id="wrapper">
 			<div id="headerwrapper">
         		<div id="header">
-        			<h1 class="title">Forum</h1>
+        			<h1 class="title">The Forum</h1>
         		</div>
         		<div id="navigation">
         			<ul class="navigation">
         				<li>
         					<a href="/">Home</a>
         				</li>
+        				{% for array in topicService.getAllTopics() %}
         				<li>
-        					<a href="/">Thema 1</a>
+        					<a href="/topic/{{ array[0] }}">{{ array[0] }}</a>
         				</li>
+        				{% endfor %}
         				{% if user != "" %}
         				<li class="right">
-        					<a href="/logout">Logout</a>
+        					<a href="/logout/{{ _SESSION.get("token") }}">Logout</a>
         				</li>
         				{% else %}
         				<li class="right">

@@ -5,24 +5,26 @@
 	<h1>Login</h1>
 	<form method="POST">
 		<div>
-			<label>
-			Email:
-			<input type="email" name="email" value="{{ email }}"/>
-			</label>
+			<input type="text" name="username" value="{{ username }}" placeholder="Username/Email" class="inputField"/>
 		</div>
 		
 		<div>
-			<label>
-			Password:
-			<input type="password" name="password">
-			</label>
+			<input type="password" name="password" placeholder="Password" class="inputField">
 		</div>
 		
 		<div>
-			<input type="hidden" name="token" value="{{ token }}"
+			<a href="/register">Register</a>
+			<a href="/forgotpassword">Forgot Password</a>
 		</div>
+		
 		<div>
-			<input type="submit" value="Login">
+			<input type="submit" value="Login" class="submitbutton">
+		</div>
+		
+		<div>
+    		<p class="errormessage">
+		    	{{ errorMessage }}
+    		</p>
 		</div>
 		
 	</form>

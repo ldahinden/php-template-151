@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+	<h1>Register</h1>
+	<form method="POST">
+		<div>
+			<input type="text" name="username" value="{{ username }}" placeholder="Username" class="inputField"/>
+		</div>
+		<div>
+			<input type="email" name="email" value="{{ email }}" placeholder="Email" class="inputField"/>
+		</div>
+		
+		<div>
+			<input type="password" name="password" placeholder="Password" class="inputField"/>
+		</div>
+		
+		<div>
+			<input type="password" name="confirmPassword" placeholder="Confirm Password" class="inputField"/>
+		</div>
+		<div>
+			<input type="submit" value="Register" class="submitbutton"/>
+		</div>
+		<div>
+    		<p class="errormessage">
+		    	{{ errorMessage }}
+    		</p>
+		</div>
+	</form>
+{% endblock %}
