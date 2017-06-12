@@ -2,6 +2,8 @@
 
 namespace ldahinden\Service;
 
+use ldahinden\Entity\UserEntity;
+
 class LoginMysqlService implements LoginService 
 {
 	/**
@@ -17,20 +19,14 @@ class LoginMysqlService implements LoginService
 		$this->pdo = $pdo;
 	}
 	
-	public function authenticate($username, $password)
+	public function getUser($username)
 	{
 		$stmt = $this->pdo->prepare("SELECT * FROM user WHERE email=? OR username=?");
 		$stmt->bindValue(1, $username);
 		$stmt->bindValue(2, $username);
 		$stmt->execute();
-		$user = $stmt->fetchObject();
-		if ($user->activated)
-		{
-			return password_verify($password, $user->password);
-		}
-		else 
-		{
-			return false;
-		}
+		$obj = $stmt->fetchObject();
+		$user = new UserEntity($obj->username, $obj->email, $obj->password, $obj->activated, $obj->activationstring);
+		return $user;
 	}
 }

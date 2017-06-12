@@ -9,7 +9,7 @@ interface LoginService {
 	 * @param unknown $password
 	 * @return boolean
 	 */
-	public function authenticate($username, $password);
+	public function getUser($username);
 }
 
 ?>

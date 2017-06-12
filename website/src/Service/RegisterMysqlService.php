@@ -2,6 +2,8 @@
 
 namespace ldahinden\Service;
 
+use ldahinden\Entity\UserEntity;
+
 class RegisterMysqlService implements RegisterService
 {
 	private $pdo;
@@ -11,13 +13,13 @@ class RegisterMysqlService implements RegisterService
 		$this->pdo = $pdo;
 	}
 	
-	public function registerUser($username, $email, $password, $activationstring)
+	public function registerUser(UserEntity $user)
 	{
 		$stmt = $this->pdo->prepare("INSERT INTO user (username, email, password, activated, activationstring) VALUES (?, ?, ?, 0, ?)");
-		$stmt->bindValue(1, $username);
-		$stmt->bindValue(2, $email);
-		$stmt->bindValue(3, $password);
-		$stmt->bindValue(4, $activationstring);
+		$stmt->bindValue(1, $user->getUsername());
+		$stmt->bindValue(2, $user->getEmail());
+		$stmt->bindValue(3, $user->getPassword());
+		$stmt->bindValue(4, $user->getActivationstring());
 		$stmt->execute();
 	}
 	

@@ -59,6 +59,7 @@ class Factory
 		$loader = new \Twig_Loader_Filesystem(__DIR__ . "/../templates/");
 		$twig = new \Twig_Environment($loader);
 		$twig->addGlobal("_SESSION", $this->getSession());
+		$twig->addGlobal("topicService", $this->getTopicService());
 		return $twig;
 	}
 	

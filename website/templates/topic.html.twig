@@ -3,5 +3,8 @@
 {% block title %}{{ topicname }}{% endblock %}
 {% block content %}
 	<h1>{{ topicname }}</h1>
+	{%  if posts == null %}
+	<p>There are no posts for this topic</p>
+	{% endif %}
  
 {% endblock %}

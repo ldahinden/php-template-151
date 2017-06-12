@@ -4,6 +4,7 @@ namespace ldahinden\Controller;
 
 use ldahinden\SimpleTemplateEngine;
 use ldahinden\Service\LoginService;
+use ldahinden\Entity\UserEntity;
 
 class LoginController 
 {
@@ -34,13 +35,14 @@ class LoginController
   
   public function login(array $data)
   {
+  	$user = $this->loginService->getUser($data['username']);
   	if(!array_key_exists('username', $data) OR !array_key_exists('password', $data))
   	{
   		$this->showLogin();
   		return;
   	}
-  	if($this->loginService->authenticate($data["username"], $data["password"])){
-  		$_SESSION["username"] = $data["username"];
+  	if($user->getActivated() AND password_verify($data['password'], $user->getPassword())){
+  		$_SESSION["username"] = $user->getUsername();
   		header("Location: /");
   	}else{
   		echo $this->template->render("login.html.twig", ["username" => $data["username"], "errorMessage" => "Username or Password are not correct or your account has not been activated yet."]);  		

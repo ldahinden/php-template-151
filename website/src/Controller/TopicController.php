@@ -17,6 +17,6 @@ class TopicController
 	
 	public function showPostsForTopic(string $topicName)
 	{
-		$this->template->render("topic.html.twig", ['posts' => $this->topicService->getPostsForTopic($topicName), 'topicname' => $topicName]);
+		echo $this->template->render("topic.html.twig", ['posts' => $this->topicService->getPostsForTopic($topicName), 'topicname' => $topicName]);
 	}
 }

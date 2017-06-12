@@ -90,6 +90,7 @@ switch($_SERVER["REQUEST_URI"]) {
 		else if(preg_match("|^/topic/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
 		{
 			$factory->getTopicController()->showPostsForTopic($matches[1]);
+			break;
 		}
 		echo "Not Found";
 }

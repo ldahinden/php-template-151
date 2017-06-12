@@ -1,8 +1,8 @@
 <?php 
 
-namespace ldahinden\DataMapper;
+namespace ldahinden\Entity;
 
-class User
+class UserEntity
 {
 	private $username;
 	
@@ -39,9 +39,19 @@ class User
 		return $this->username;
 	}
 	
+	public function setUsername($username)
+	{
+		$this->username = $username;
+	}
+	
 	public function getEmail()
 	{
 		return $this->email;
+	}
+	
+	public function setEmail($email)
+	{
+		$this->email = $email;
 	}
 	
 	public function getPassword()
@@ -49,13 +59,28 @@ class User
 		return $this->password;
 	}
 	
+	public function setPassword($password)
+	{
+		$this->password = $password;
+	}
+	
 	public function getActivated()
 	{
 		return $this->activated;
 	}
 	
+	public function setActivated($activated)
+	{
+		$this->activated = $activated;
+	}
+	
 	public function getActivationstring()
 	{
 		return $this->activationstring;
+	}
+	
+	public function setActivationstring($activationstring)
+	{
+		$this->activationstring = $activationstring;
 	}
 }

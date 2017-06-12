@@ -3,6 +3,7 @@
 namespace ldahinden\Controller;
 
 use ldahinden\Service\RegisterService;
+use ldahinden\Entity\UserEntity;
 
 class RegisterController
 {
@@ -57,7 +58,8 @@ class RegisterController
 		if ($data["password"] == $data["confirmPassword"])
 		{
 			$activationstring = md5(random_bytes(1000));
-			$this->registerService->registerUser($data["username"], $data["email"], password_hash($data["password"], PASSWORD_DEFAULT), $activationstring);
+			$user = new UserEntity($data["username"], $data["email"], password_hash($data["password"], PASSWORD_DEFAULT), 0, $activationstring);
+			$this->registerService->registerUser($user);
 			$this->mailer->send(
 					\Swift_Message::newInstance("User Activation")
 					->setFrom(['noreply@theforum.com'])
