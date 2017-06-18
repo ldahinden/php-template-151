@@ -17,13 +17,13 @@
 		</div>
 		
 		<div>
-			<input type="text" name="text" value="{{ text }}" placeholder="Text" class="inputField"/>
+			<textarea name="text" value="{{ text }}" placeholder="Text" class="textField"></textarea>
 		</div>
 		
 		<input type="hidden" name="token" value="{{ _SESSION.get('token') }}"/>
 		
 		<div>
-			<input type="submit" value="Post" class="submitbutton"/>
+			<input type="submit" value="Answer" class="submitbutton"/>
 		</div>
 		<div>
     		<p class="errormessage">

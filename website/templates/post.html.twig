@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ post.getTitle() }}{% endblock %}
+{% block content %}
+	<fieldset>
+		<legend>{{ post.getTitle() }}</legend>
+		<p>{{ post.getText() }}</p>
+		<p class="postdate">Created {{ post.getDatecreated() }} by {{ post.getUsername() }} in <a href="/topic/{{ post.getTopicname() }}">{{ post.getTopicname() }}</a></p>
+		{% if _SESSION.get("username") != "" %}
+		<a href="/comment/{{ post.getId() }}">Write an Answer</a>
+		{% endif %}
+		{% for array in answers %}
+		<fieldset>
+			<legend>{{ array['username'] }}</legend>
+			<p>{{ array['text'] }}</p>
+			<p class="postdate">Created {{ array['datecreated'] }}</p>
+		</fieldset>
+		{% endfor %}
+	</fieldset>
+ 
+{% endblock %}

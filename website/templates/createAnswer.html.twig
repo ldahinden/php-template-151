@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block title %}Answer Post{% endblock %}
+{% block content %}
+	<h1>Answer Post</h1>
+	<form method="POST">
+		
+		<div>
+			<textarea name="text" value="{{ text }}" placeholder="Text" class="textField"></textarea>
+		</div>
+		
+		<input type="hidden" name="post_id" value="{{ post_id }}" />
+		<input type="hidden" name="token" value="{{ _SESSION.get('token') }}"/>
+		
+		<div>
+			<input type="submit" value="Post" class="submitbutton"/>
+		</div>
+		<div>
+    		<p class="errormessage">
+		    	{{ errorMessage }}
+    		</p>
+		</div>
+	</form>
+{% endblock %}

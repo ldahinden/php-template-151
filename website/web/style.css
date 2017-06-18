@@ -65,7 +65,7 @@ ul.navigation li.right{
 }
 
 #content{
-	margin-top: 200px;
+	margin-top: 220px;
 	text-align: center;
 }
 
@@ -99,6 +99,12 @@ input.inputField{
 	margin: 10px;
 }
 
+textarea {
+	width: 200px;
+	height: 75px;
+	margin: 10px;	
+}
+
 select{
 	width: 200px;
 	font-size: 16px;
@@ -111,14 +117,34 @@ fieldset {
 	text-align: left;
 }
 
-fieldset legend a{
+fieldset legend, fieldset legend a{
 	text-decoration: none;
 	color: #3F3F3F;
 	font-size: 20px;
 	font-weight: bold;
 }
 
+fieldset > a {
+	display: block;
+	color: #E59400;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px 15px;
+	text-decoration: none;
+	background-color: #3F3F3F;
+}
+
+fieldset > a:HOVER {
+	background-color: #8B8B8B;
+	color: #3F3F3F;	
+}
+
 p.postdate {
 	font-size: 12px;
 	color: #3F3F3F;
+}
+
+p.postdate a {
+	color: #3F3F3F;
+	text-decoration: none;
 }

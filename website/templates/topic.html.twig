@@ -10,7 +10,10 @@
 	<fieldset>
 		<legend><a href="/post/{{ array['id'] }}">{{ array['title'] }}</a></legend>
 		<p>{{ array['text'] }}</p>
-		<p class="postdate">Created {{ array['datecreated'] }}</p>
+		<p class="postdate">Created {{ array['datecreated'] }} by {{ array['username'] }}</p>
+		{% if _SESSION.get("username") != "" %}
+		<a href="/comment/{{ array['id'] }}">Write an Answer</a>
+		{% endif %}
 	</fieldset>
 	{% endfor %}
 	{% endif %}

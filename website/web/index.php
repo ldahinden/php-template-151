@@ -102,10 +102,24 @@ switch($_SERVER["REQUEST_URI"]) {
 			$factory->getTopicController()->showPostsForTopic($matches[1]);
 			break;
 		}
-		else if(preg_match("|^post/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
+		else if(preg_match("|^/post/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
 		{
 			$factory->getPostController()->showPost($matches[1]);
 			break;
+		}
+		else if (preg_match("|comment/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
+		{			
+			$ctr = $factory->getPostController();
+			if ($_SERVER["REQUEST_METHOD"] == "GET")
+			{
+				$ctr->showCreateAnswer($matches[1]);
+				break;
+			}
+			else if ($_SERVER["REQUEST_METHOD"] == "POST")
+			{
+				$ctr->createAnswer($_POST);
+				break;
+			}
 		}
 		echo "Not Found";
 }
