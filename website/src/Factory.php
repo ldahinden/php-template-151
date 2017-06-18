@@ -23,7 +23,7 @@ class Factory
 		return new Controller\LoginController(
 				$this->getTwigEngine(),
 				$this->getLoginService(),
-				$this->getMailer());
+				$this->getSession());
 	}
 	
 	public function getRegisterController()
@@ -47,6 +47,14 @@ class Factory
 		return new Controller\TopicController(
 				$this->getTwigEngine(),
 				$this->getTopicService());
+	}
+	
+	public function getPostController()
+	{
+		return new Controller\PostController(
+				$this->getTwigEngine(),
+				$this->getPostService(),
+				$this->getSession());
 	}
 	
 	public function getTemplateEngine()
@@ -100,6 +108,11 @@ class Factory
 	public function getTopicService()
 	{
 		return  new Service\TopicMySqlService($this->getPDO());
+	}
+	
+	public function getPostService()
+	{
+		return new Service\PostMysqlService($this->getPDO());
 	}
 	
 	public function getSession()

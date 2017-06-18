@@ -58,6 +58,16 @@ switch($_SERVER["REQUEST_URI"]) {
 		{
 			$ctr->sendForgotPasswordEmail($_POST);
 		}
+	case "/createpost":
+		$ctr = $factory->getPostController();
+		if ($_SERVER['REQUEST_METHOD'] == "GET")
+		{
+			$ctr->showCreatePost();
+		}
+		else if ($_SERVER['REQUEST_METHOD'] == "POST")
+		{
+			$ctr->createPost($_POST);
+		}
 	default:
 		$matches = [];
 		if(preg_match("|^/activate/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
@@ -90,6 +100,11 @@ switch($_SERVER["REQUEST_URI"]) {
 		else if(preg_match("|^/topic/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
 		{
 			$factory->getTopicController()->showPostsForTopic($matches[1]);
+			break;
+		}
+		else if(preg_match("|^post/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
+		{
+			$factory->getPostController()->showPost($matches[1]);
 			break;
 		}
 		echo "Not Found";

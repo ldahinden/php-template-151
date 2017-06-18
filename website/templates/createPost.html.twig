@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+{% block title %}Create Post{% endblock %}
+{% block content %}
+	<h1>Create Post</h1>
+	<form method="POST">
+		
+		<div>
+			<select name="topic">
+				{% for array in topicService.getAllTopics() %}
+				<option value="{{ array[0] }}">{{ array[0] }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		
+		<div>
+			<input type="text" name="title" value="{{ title }}" placeholder="Title" class="inputField"/>
+		</div>
+		
+		<div>
+			<input type="text" name="text" value="{{ text }}" placeholder="Text" class="inputField"/>
+		</div>
+		
+		<input type="hidden" name="token" value="{{ _SESSION.get('token') }}"/>
+		
+		<div>
+			<input type="submit" value="Post" class="submitbutton"/>
+		</div>
+		<div>
+    		<p class="errormessage">
+		    	{{ errorMessage }}
+    		</p>
+		</div>
+	</form>
+{% endblock %}

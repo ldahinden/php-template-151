@@ -11,6 +11,10 @@ class Session
 	
 	public function get($key)
 	{
+		if (!isset($_SESSION[$key]))
+		{
+			return "";
+		}
 		return $_SESSION[$key];
 	}
 	

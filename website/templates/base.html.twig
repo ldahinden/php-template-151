@@ -22,9 +22,12 @@
         					<a href="/topic/{{ array[0] }}">{{ array[0] }}</a>
         				</li>
         				{% endfor %}
-        				{% if user != "" %}
+        				{% if _SESSION.get("username") != "" %}
         				<li class="right">
         					<a href="/logout/{{ _SESSION.get("token") }}">Logout</a>
+        				</li>
+        				<li class="right">
+        					<a href="/createpost">Post Something</a>
         				</li>
         				{% else %}
         				<li class="right">

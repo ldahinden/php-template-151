@@ -5,6 +5,14 @@
 	<h1>{{ topicname }}</h1>
 	{%  if posts == null %}
 	<p>There are no posts for this topic</p>
+	{% else %}
+	{% for array in posts %}
+	<fieldset>
+		<legend><a href="/post/{{ array['id'] }}">{{ array['title'] }}</a></legend>
+		<p>{{ array['text'] }}</p>
+		<p class="postdate">Created {{ array['datecreated'] }}</p>
+	</fieldset>
+	{% endfor %}
 	{% endif %}
  
 {% endblock %}
