@@ -53,6 +53,10 @@ CREATE TABLE `topic` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `topic` (`id`, `name`) VALUES
+(1,	'Gaming'),
+(2,	'Sports'),
+(3,	'Music');
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (

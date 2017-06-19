@@ -1,28 +1,18 @@
 <?php
 
+use ldahinden\Session;
+
 error_reporting(E_ALL);
 
 require_once("../vendor/autoload.php");
 
 $conf = parse_ini_file(__DIR__ . "/../config.ini", true);
 $factory = new ldahinden\Factory($conf);
+$session = $factory->getSession();
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
 		$factory->getIndexController()->homepage();
-		/*$factory->getMailer()->send(
-				Swift_Message::newInstance("Subject")
-				->setFrom(["gibz.module.151@gmail.com" => "Your Name"])
-				->setTo(["luca.dahinden@gmx.ch" => "Foos Name"])
-				->setBody("lul")
-				);*/
-		break;
-	case "/test/upload":
-		if(file_put_contents(__DIR__ . "/../../upload/test.txt", "Mein erster Upload")) {
-			echo "It worked";
-		} else {
-			echo "Error happened";
-		}
 		break;
 	case "/testroute":
 		echo "Test";
@@ -48,6 +38,7 @@ switch($_SERVER["REQUEST_URI"]) {
 		{
 			$ctr->register($_POST);
 		}
+		break;
 	case "/forgotpassword":
 		$ctr = $factory->getPasswordController();
 		if ($_SERVER['REQUEST_METHOD'] == "GET")
@@ -58,16 +49,24 @@ switch($_SERVER["REQUEST_URI"]) {
 		{
 			$ctr->sendForgotPasswordEmail($_POST);
 		}
+		break;
 	case "/createpost":
-		$ctr = $factory->getPostController();
-		if ($_SERVER['REQUEST_METHOD'] == "GET")
+		if ($session->get('username') != "")
 		{
-			$ctr->showCreatePost();
+			$ctr = $factory->getPostController();
+			if ($_SERVER['REQUEST_METHOD'] == "GET")
+			{
+				$ctr->showCreatePost();
+			}
+			else if ($_SERVER['REQUEST_METHOD'] == "POST")
+			{
+				$ctr->createPost($_POST);
+			}
 		}
-		else if ($_SERVER['REQUEST_METHOD'] == "POST")
-		{
-			$ctr->createPost($_POST);
+		else {
+			header("Location: /login");
 		}
+		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/activate/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
@@ -108,17 +107,23 @@ switch($_SERVER["REQUEST_URI"]) {
 			break;
 		}
 		else if (preg_match("|comment/(.+)$|", $_SERVER["REQUEST_URI"], $matches))
-		{			
-			$ctr = $factory->getPostController();
-			if ($_SERVER["REQUEST_METHOD"] == "GET")
+		{	
+			if ($session->get('username') != "")
 			{
-				$ctr->showCreateAnswer($matches[1]);
-				break;
+				$ctr = $factory->getPostController();
+				if ($_SERVER["REQUEST_METHOD"] == "GET")
+				{
+					$ctr->showCreateAnswer($matches[1]);
+					break;
+				}
+				else if ($_SERVER["REQUEST_METHOD"] == "POST")
+				{
+					$ctr->createAnswer($_POST);
+					break;
+				}
 			}
-			else if ($_SERVER["REQUEST_METHOD"] == "POST")
-			{
-				$ctr->createAnswer($_POST);
-				break;
+			else {
+				header("Location: /login");
 			}
 		}
 		echo "Not Found";

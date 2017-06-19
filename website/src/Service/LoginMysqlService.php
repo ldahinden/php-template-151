@@ -26,7 +26,12 @@ class LoginMysqlService implements LoginService
 		$stmt->bindValue(2, $username);
 		$stmt->execute();
 		$obj = $stmt->fetchObject();
-		$user = new UserEntity($obj->username, $obj->email, $obj->password, $obj->activated, $obj->activationstring);
-		return $user;
+		if ($obj) {
+			$user = new UserEntity($obj->username, $obj->email, $obj->password, $obj->activated, $obj->activationstring);
+			return $user;
+		}
+		else {
+			return $obj;
+		}
 	}
 }

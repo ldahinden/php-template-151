@@ -49,7 +49,7 @@ class LoginController
   		return;
   	}
   	$user = $this->loginService->getUser($data['username']);
-  	if($user->getActivated() AND password_verify($data['password'], $user->getPassword())){
+  	if($user AND $user->getActivated() AND password_verify($data['password'], $user->getPassword())){
   		$this->session->set("username", $user->getUsername());
   		header("Location: /");
   	}else{
