@@ -26,7 +26,7 @@ class PostMysqlService implements PostService
 		$stmt = $this->pdo->prepare("SELECT * FROM post WHERE id=?;");
 		$stmt->execute([$postId]);
 		$obj = $stmt->fetchObject();
-		return new PostEntity($postId, $this->getTopicName($obj->topic_id), $this->getUserName($obj->user_id), $obj->title, $obj->text, $obj->datecreated);
+		return new PostEntity($this->getTopicName($obj->topic_id), $this->getUserName($obj->user_id), $obj->title, $obj->text, $obj->datecreated);
 	}
 	
 	public function createAnswer(AnswerEntity $answer)

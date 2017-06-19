@@ -49,6 +49,7 @@ class PostController
 	public function showPost(string $postid)
 	{
 		$post = $this->postService->getPost($postid);
+		$post->setId($postid);
 		$answers = $this->postService->getAnswersForPost($postid);
 		echo $this->template->render("post.html.twig", ['post' => $post, 'answers' => $answers]);
 	}

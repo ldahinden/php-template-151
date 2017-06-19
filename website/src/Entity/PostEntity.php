@@ -11,14 +11,18 @@ class PostEntity
 	private $text;
 	private $datecreated;
 	
-	public function __construct(string $id, string $topicname, string $username, string $title, string $text, string $datecreated)
+	public function __construct(string $topicname, string $username, string $title, string $text, string $datecreated)
 	{
-		$this->id = $id;
 		$this->topicname = $topicname;
 		$this->username = $username;
 		$this->title = $title;
 		$this->text = $text;
 		$this->datecreated = $datecreated;
+	}
+	
+	public function setId(string $id)
+	{
+		$this->id = $id;
 	}
 	
 	public function getId()
