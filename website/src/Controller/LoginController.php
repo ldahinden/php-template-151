@@ -43,6 +43,11 @@ class LoginController
   		$this->showLogin();
   		return;
   	}
+  	if (empty($data['username']))
+  	{
+  		echo $this->template->render("login.html.twig", ["errorMessage" => "Enter a valid Username"]);
+  		return;
+  	}
   	$user = $this->loginService->getUser($data['username']);
   	if($user->getActivated() AND password_verify($data['password'], $user->getPassword())){
   		$this->session->set("username", $user->getUsername());
