@@ -126,6 +126,6 @@ switch($_SERVER["REQUEST_URI"]) {
 				header("Location: /login");
 			}
 		}
-		echo "Not Found";
+		header("Location: /");
 }
 
